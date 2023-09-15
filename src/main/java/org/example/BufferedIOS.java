@@ -10,7 +10,7 @@ public class BufferedIOS {
 
     private static void readInputFromBufferedFile() {
         try {
-            FilterInputStream filterInputStream = new BufferedInputStream(new FileInputStream("testout.txt"));
+            FilterInputStream filterInputStream = new BufferedInputStream(new FileInputStream("testOut.txt"));
             int i = 0;
 
             while((i = filterInputStream.read()) != -1){
@@ -27,7 +27,7 @@ public class BufferedIOS {
         String outputText = scanner.nextLine();
 
         try {
-            OutputStream bufferedOut = new BufferedOutputStream(new FileOutputStream("testout.txt"));
+            OutputStream bufferedOut = new BufferedOutputStream(new FileOutputStream("testOut.txt"));
             byte[] bytes = outputText.getBytes();
 
             bufferedOut.write(bytes);

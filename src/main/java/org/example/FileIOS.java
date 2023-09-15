@@ -7,12 +7,13 @@ import java.util.Scanner;
 
 public class FileIOS {
     public static void main(String[] args) {
-        readWholeFile();
+//        readWholeFile();
+writeToFileViaConsole();
     }
 
     private static void readWholeFile() {
         try {
-            FileInputStream fileIn = new FileInputStream("testout.txt");
+            FileInputStream fileIn = new FileInputStream("testOut.txt");
             int i = 0;
             while ((i = fileIn.read()) != -1) {
                 System.out.print((char) i);
@@ -25,7 +26,7 @@ public class FileIOS {
 
     private static void readOneWordInAFile() {
         try {
-            FileInputStream fileIn = new FileInputStream("testout.txt");
+            FileInputStream fileIn = new FileInputStream("testOut.txt");
             int i = fileIn.read();
             System.out.println((char) i);
             fileIn.close();
@@ -41,7 +42,7 @@ public class FileIOS {
         String text = scanner.nextLine();
 
         try {
-            FileOutputStream fileOut = new FileOutputStream("testout.txt");
+            FileOutputStream fileOut = new FileOutputStream("testOut.txt");
             String text1 = "Hello Java";
             byte[] bytes = text.getBytes();
 
