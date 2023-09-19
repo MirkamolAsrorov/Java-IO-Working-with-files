@@ -1,4 +1,4 @@
-package org.example;
+package org.example.ios;
 
 import lombok.Getter;
 import lombok.Setter;
