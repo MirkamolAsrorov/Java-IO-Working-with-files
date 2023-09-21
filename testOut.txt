@@ -1,2 +1,1 @@
-This is printWriter
-And i could implement it 
+Hello world

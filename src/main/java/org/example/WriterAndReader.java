@@ -8,6 +8,30 @@ public class WriterAndReader {
 
     }
 
+    private static void convertByteStreamsIntoCharStreams() {
+        try {
+            InputStreamReader fileReader = new InputStreamReader(
+                    new FileInputStream("testOut.txt"));
+            int aByte;
+            while ((aByte = fileReader.read()) != -1){
+                System.out.print((char) aByte);
+            }
+        }catch (IOException ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
+    private static void convertCharStreamsIntoByteStreams() {
+        try {
+            OutputStream file = new FileOutputStream("testOut.txt");
+            Writer fileWriter = new OutputStreamWriter(file);
+            fileWriter.write("Hello world");
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private static void writeCommonDataToMultipleFiles() {
         CharArrayWriter charArrayWriter = new CharArrayWriter();
 
