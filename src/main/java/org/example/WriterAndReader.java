@@ -6,31 +6,62 @@ public class WriterAndReader {
 
 
     public static void main(String[] args) throws IOException {
+
+    }
+
+    private static void readDataUsingStringReader() throws IOException {
+        StringReader stringReader = new StringReader(
+                "This is String text"
+        );
+        int data;
+
+        while ((data = stringReader.read()) != -1){
+            System.out.print((char) data);
+        }
+    }
+
+    private static void writeDataIntoStringBuffer() throws IOException {
+        StringWriter stringWriter = new StringWriter();
+        BufferedReader bufferedReader = new BufferedReader(
+                new InputStreamReader(
+                        new FileInputStream("testOut.txt")
+                )
+        );
+
+        int aCharacter;
+
+        while ((aCharacter = bufferedReader.read()) != -1) {
+            stringWriter.write(aCharacter);
+        }
+
+        stringWriter.close();
+        bufferedReader.close();
+        System.out.println(stringWriter);
     }
 
     private static void changeLettersBasedOnGivenLettersUsingPushBackReader() throws IOException {
-        char ary[] = {'1','-','-','2','-','3','4','-','-','-','5','6'};
+        char[] ary = {'1', '-', '-', '2', '-', '3', '4', '-', '-', '-', '5', '6'};
 
         PushbackReader pushbackReader = new PushbackReader(
                 new CharArrayReader(ary)
         );
         int aByte;
-        while ((aByte = pushbackReader.read()) != -1){
+        while ((aByte = pushbackReader.read()) != -1) {
 
-            if (aByte == '-'){
+            if (aByte == '-') {
 
                 int theNextByte = pushbackReader.read();
 
-                if (theNextByte == '-'){
-                        System.out.print("!)");
+                if (theNextByte == '-') {
+                    System.out.print("!)");
 
-                    } else {
-                        pushbackReader.unread(theNextByte);
-                        System.out.print((char) aByte);
+                } else {
+                    pushbackReader.unread(theNextByte);
+                    System.out.print((char) aByte);
 
-                    }
+                }
 
-            }else {
+            } else {
                 System.out.print((char) aByte);
 
             }
@@ -43,17 +74,17 @@ public class WriterAndReader {
         ByteArrayInputStream array = new ByteArrayInputStream(ary);
         PushbackInputStream push = new PushbackInputStream(array);
         int i;
-        while( (i = push.read())!= -1) {
-            if(i == '#') {
+        while ((i = push.read()) != -1) {
+            if (i == '#') {
                 int j;
-                if( (j = push.read()) == '#'){
+                if ((j = push.read()) == '#') {
                     System.out.print("**");
-                }else {
+                } else {
                     push.unread(j);
-                    System.out.print((char)i);
+                    System.out.print((char) i);
                 }
-            }else {
-                System.out.print((char)i);
+            } else {
+                System.out.print((char) i);
             }
         }
     }
@@ -63,11 +94,11 @@ public class WriterAndReader {
                 new FileInputStream("testOut.txt")
         );
         int aByte;
-        while ((aByte = pushbackInputStream.read()) != -1){
+        while ((aByte = pushbackInputStream.read()) != -1) {
             System.out.print((char) aByte);
- 
+
             pushbackInputStream.unread(aByte);
- 
+
             aByte = pushbackInputStream.read();
             System.out.print((char) aByte);
         }
