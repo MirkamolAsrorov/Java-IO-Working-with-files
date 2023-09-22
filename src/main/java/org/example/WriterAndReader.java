@@ -4,19 +4,86 @@ import java.io.*;
 
 public class WriterAndReader {
 
-    public static void main(String[] args) {
 
+    public static void main(String[] args) throws IOException {
     }
+
+    private static void changeLettersBasedOnGivenLettersUsingPushBackReader() throws IOException {
+        char ary[] = {'1','-','-','2','-','3','4','-','-','-','5','6'};
+
+        PushbackReader pushbackReader = new PushbackReader(
+                new CharArrayReader(ary)
+        );
+        int aByte;
+        while ((aByte = pushbackReader.read()) != -1){
+
+            if (aByte == '-'){
+
+                int theNextByte = pushbackReader.read();
+
+                if (theNextByte == '-'){
+                        System.out.print("!)");
+
+                    } else {
+                        pushbackReader.unread(theNextByte);
+                        System.out.print((char) aByte);
+
+                    }
+
+            }else {
+                System.out.print((char) aByte);
+
+            }
+        }
+    }
+
+    private static void changeMatchedLettersUsingPushback() throws IOException {
+        String srg = "1##2#34###12";
+        byte ary[] = srg.getBytes();
+        ByteArrayInputStream array = new ByteArrayInputStream(ary);
+        PushbackInputStream push = new PushbackInputStream(array);
+        int i;
+        while( (i = push.read())!= -1) {
+            if(i == '#') {
+                int j;
+                if( (j = push.read()) == '#'){
+                    System.out.print("**");
+                }else {
+                    push.unread(j);
+                    System.out.print((char)i);
+                }
+            }else {
+                System.out.print((char)i);
+            }
+        }
+    }
+
+    private static void doublyWriteLettersOfTheTextInTheFileUsingPushBackInputStream() throws IOException {
+        PushbackInputStream pushbackInputStream = new PushbackInputStream(
+                new FileInputStream("testOut.txt")
+        );
+        int aByte;
+        while ((aByte = pushbackInputStream.read()) != -1){
+            System.out.print((char) aByte);
+ 
+            pushbackInputStream.unread(aByte);
+ 
+            aByte = pushbackInputStream.read();
+            System.out.print((char) aByte);
+        }
+    }
+
 
     private static void convertByteStreamsIntoCharStreams() {
         try {
             InputStreamReader fileReader = new InputStreamReader(
                     new FileInputStream("testOut.txt"));
             int aByte;
-            while ((aByte = fileReader.read()) != -1){
+            while ((aByte = fileReader.read()) != -1) {
                 System.out.print((char) aByte);
             }
-        }catch (IOException ex){
+            fileReader.close();
+        } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
     }
