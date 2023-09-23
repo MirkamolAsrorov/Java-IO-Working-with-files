@@ -6,7 +6,27 @@ public class WriterAndReader {
 
 
     public static void main(String[] args) throws IOException {
+        createCustomFilterReader();
     }
+
+    private static void createCustomFilterReader() throws IOException {
+        CustomFilterReader customFilterReader = new CustomFilterReader("testOut.txt");
+
+        int data;
+        while ((data = customFilterReader.read()) != -1){
+            System.out.print((char) data);
+        }
+        customFilterReader.close();
+    }
+
+
+    private static void createCustomFilterWriter() throws IOException {
+        CustomFilterWriter customFilterWriter = new CustomFilterWriter("testOut.txt");
+        customFilterWriter.write("You love your country");
+        customFilterWriter.close();
+    }
+
+
 
     private static void writeAndReadDataSimulatenouslyUsingPipedWriterAndReader() throws IOException {
         PipedReader pipedReader = new PipedReader();
@@ -38,6 +58,9 @@ public class WriterAndReader {
         writerThread.start();
     }
 
+
+
+
     private static void writeDataWithoutThreadUsingPipedWriter() throws IOException {
         PipedReader pipedReader = new PipedReader();
         PipedWriter pipedWriter = new PipedWriter();
@@ -52,6 +75,7 @@ public class WriterAndReader {
         }
         pipedReader.close();
     }
+
 
     private static void readDataUsingStringReader() throws IOException {
         StringReader stringReader = new StringReader(
