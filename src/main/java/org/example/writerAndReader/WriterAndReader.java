@@ -1,4 +1,7 @@
-package org.example;
+package org.example.writerAndReader;
+
+import org.example.writerAndReader.CustomFilterReader;
+import org.example.writerAndReader.CustomFilterWriter;
 
 import java.io.*;
 
@@ -6,7 +9,7 @@ public class WriterAndReader {
 
 
     public static void main(String[] args) throws IOException {
-        createCustomFilterReader();
+
     }
 
     private static void createCustomFilterReader() throws IOException {
