@@ -6,7 +6,51 @@ public class WriterAndReader {
 
 
     public static void main(String[] args) throws IOException {
+    }
 
+    private static void writeAndReadDataSimulatenouslyUsingPipedWriterAndReader() throws IOException {
+        PipedReader pipedReader = new PipedReader();
+        PipedWriter pipedWriter = new PipedWriter(pipedReader);
+
+        Thread readerThread = new Thread(() -> {
+            int data;
+            while (true) {
+                try {
+                    if ((data = pipedReader.read()) == -1)
+                        break;
+
+                    System.out.print((char) data);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+        Thread writerThread = new Thread(() -> {
+            try {
+                pipedWriter.write("This is a litle bit difficult theme to learn and understand");
+                pipedWriter.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        readerThread.start();
+        writerThread.start();
+    }
+
+    private static void writeDataWithoutThreadUsingPipedWriter() throws IOException {
+        PipedReader pipedReader = new PipedReader();
+        PipedWriter pipedWriter = new PipedWriter();
+        pipedWriter.connect(pipedReader);
+
+        pipedWriter.write("Hello world what is going on here");
+        pipedWriter.close();
+
+        int data;
+        while ((data = pipedReader.read()) != -1) {
+            System.out.print((char) data);
+        }
+        pipedReader.close();
     }
 
     private static void readDataUsingStringReader() throws IOException {
@@ -15,7 +59,7 @@ public class WriterAndReader {
         );
         int data;
 
-        while ((data = stringReader.read()) != -1){
+        while ((data = stringReader.read()) != -1) {
             System.out.print((char) data);
         }
     }
